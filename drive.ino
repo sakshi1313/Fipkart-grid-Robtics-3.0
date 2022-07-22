@@ -9,6 +9,24 @@
 const char *ssid = "";
 const char *password = "";
 
+#define led_p1 d23;
+#define led_n1 d22;
+#define led_p2 d14;
+#define led_n2 d32;
+#define motor1in1 d6;
+#define motor1in2 d7;
+#define motor2in3 d3;
+#define motor2in4 d4;
+#define enable1 d5;
+#define enable2 d2;
+#define servoPin d1;
+int pos = 0;
+int m1high=255,m2high=255;
+int m1mid=180,m2mid=180;
+int m1low=120,m2low=120;
+Servo myservo;  // create servo object to control a servo
+// 16 servo objects can be created on the ESP32
+ 
 WiFiServer server(80);
 
 
@@ -27,10 +45,29 @@ void setup() {
   server.begin();
 
   Serial.println("Server started");
+
+  pinMode(motor1in1, OUTPUT);
+  pinMode(motor1in2, OUTPUT);
+  pinMode(motor2in3, OUTPUT);
+  pinMode(motor2in4, OUTPUT);
+  pinMode(enable1,OUTPUT);
+  pinMode(enable2,OUTPUT);
+  pinMode(led_p1, OUTPUT);
+  pinMode(led_n1, OUTPUT);
+  pinMode(led_p2, OUTPUT);
+  pinMode(led_n2, OUTPUT);
+  delay(10);
+  myservo.attach(servoPin, 500, 2400); // attaches the servo on pin 18 to the servo object
+ 
 }
 
 void loop() {
-  WiFiClient client = server.available();   
+
+  digitalWrite(led_n1, LOW);
+  digitalWrite(led_p1, HIGH);
+  digitalWrite(led_n2, LOW);
+  digitalWrite(led_p2, HIGH);
+  WiFiClient client = server.available();   // listen for incoming clients
   if (client) {                                       
     String currentLine = "";                
     while (client.connected()) {            
