@@ -27,7 +27,7 @@ def countour_count(new_img):
 
 
 
-bot = True
+bot_value = True
 origin1=[274,29]
 origin2=[304,26]
 origin3=[334,29]
@@ -151,7 +151,7 @@ while True:
     arr.append([int(x_cor), int(y_cor)])
     value = sorted(arr, key=lambda k: k[0])
     print(value)
-    if int(x_cor) == int(y_cor) == -1 : bot = False
+    if int(x_cor) == int(y_cor) == -1 : bot_value = False
     bot0=value[0] 
     bot1=value[1]
     bot2=value[2]
@@ -164,7 +164,7 @@ while True:
 
     for i in range(4):
 
-        if (bot == False):
+        if (bot_value == False):
             r=requests.get(url="http://" + urlarray[i]+"/Forward")
             time.sleep(0.2)
 
